@@ -1,0 +1,2 @@
+# VoicebasedAssistant-Python-
+Voice based Assisstant : It is a basic version of voice assistant which is build with python language by the usage of simple modules ( speechrecognition, datetime, wikipedia, youtube, playsound,pyttsx3,pywhatkit,pyjokes,ImageGrab)  Assistance  is capable of providing voice interaction, mp3 player (playing songs), playing audiobooks, and providing information on any topic (by the usage of WIKIPEDIA), and other real-time information, such as news via youtube. 
