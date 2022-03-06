@@ -1,129 +1,170 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+import speech_recognition as sr
+import pyttsx3
+import pywhatkit
+import datetime
+import wikipedia
+import pyjokes
+import pyscreenshot as ImageGrab
 
-# C extensions
-*.so
+listener = sr.Recognizer()
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice',voices[1].id)
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+def talk(text):
+        engine.say(text)
+        engine.runAndWait()
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+def take_command():
+        try:
+            with sr.Microphone() as source:
+             print('Hii this is your assistant')
+             talk('Hii this is your assistant')
+             print('what can i do for you')
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+             print('listening...')
+             talk('what can i do for you..')
+             voice = listener.listen(source)
+            command = listener.recognize_google(voice)
+            command = command.lower()
+            if 'assistant' in command:
+                command=command.replace('assistant'," ")
+            print(command)
+        except:
+          pass
+        return command
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
 
-# Translations
-*.mo
-*.pot
+def run_assistant():
+ command = take_command()
+ 
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
 
-# Flask stuff:
-instance/
-.webassets-cache
+ print=(command)
+ if 'play' in command:
+     song=command.replace('play',"")
+     talk('playing ' +song)
+     print=(song)
+     pywhatkit.playonyt(song)
 
-# Scrapy stuff:
-.scrapy
 
-# Sphinx documentation
-docs/_build/
+ if 'current time'in command:
+     time=datetime.datetime.now().strftime('%I:%M:%p')
+     print=(time)
+     talk('the current time is ' +time)
+     
+ if 'what is ' in command:
+     thing=command.replace('what is','')
+     info=wikipedia.summary(thing,2)
+     print=(thing)
+     talk(info)
 
-# PyBuilder
-target/
+ if "power off " in command:
+     person = command.replace('power off', '')
 
-# Jupyter Notebook
-.ipynb_checkpoints
 
-# IPython
-profile_default/
-ipython_config.py
+     talk("powering off")
 
-# pyenv
-.python-version
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
+ if'who is' in command:
+     person=command.replace('who is','')
+     information=wikipedia.summary(person,3)
+     print=(information)
+     talk(information)
 
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
+ if'tell me about'in command:
+     object=command.replace('tell me about','')
+     inform=wikipedia.summary(object,3)
+     print=(inform)
+     talk(inform)
 
-# SageMath parsed files
-*.sage.py
+ if 'tell me ' in command:
+     object = command.replace('tell me ', '')
+     inform = wikipedia.summary(object, 3)
+     print = (inform)
+     talk(inform)
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+ if'who is'in command:
+     object=command
+     inform=wikipedia.summary(object,5)
+     print=(inform)
+     talk(inform)
 
-# Spyder project settings
-.spyderproject
-.spyproject
+ if'joke'in command:
+     talk(pyjokes.get_joke())
 
-# Rope project settings
-.ropeproject
+ if'how is' in command:
+     object=command.replace('how is','')
+     inform=wikipedia.summary(object,5)
+     print(inform)
+     talk(inform)
 
-# mkdocs documentation
-/site
+ if'who is'in command:
+     person=person.replace('who is','')
+     information=wikipedia.summary(person,3)
+     print=(information)
+     talk(information)
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+ if 'screenshot' in command:
+     im = ImageGrab.grab()
+     im.save("harshithags.png")
+     talk("Screen shot saved as harshithags24.png")
 
-# Pyre type checker
-.pyre/
+ if'whats app' in command:
+     pywhatkit.sendwhatmsg('+911234567890', 'HIII HARSHITHA', 23, 51)
+     '''contact no., message,time(hour,minute)'''
+  if 'pi' in command:
+     print=('pi')
+     talk('the value of pi is:3.141592')
+
+ if ' value of i' in command:
+     print = ('i')
+     talk('the value of i is : root -1')
+
+ if ' e ' in command:
+     print = ('e')
+     talk(' e is:2.71828182845904523536028747135266249')
+
+ if ' root 2' in command:
+     talk(' root 2 is:1.41421356237309504880168872420969807')
+
+ if 'gamma value' in command:
+     talk('gamma  is:0.57721566490153286060651209008240243')
+
+ if 'omega constant ' in command:
+     print = ('omega constant')
+     talk('omega constant is:0.56714329040978387299996866221035554')
+
+ if 'parabolic constant'in command:
+     talk('parabolic constant is : 2.29 5587 14939 2638 07403')
+
+ if" english song" in command:
+     talk("playing english song")
+     playsound('C:\\Users\\Harshitha G S\\PycharmProjects\\FINAL_ALEXA\\song_01.mp3')
+
+ if" telugu song" in command:
+     talk("playing telugu song")
+     playsound('C:\\Users\\Harshitha G S\\PycharmProjects\\FINAL_ALEXA\\ishq.mp3')
+
+ if " malayalam song" in command:
+     talk("playing malayalam song")
+     playsound('C:\\Users\\Harshitha G S\\PycharmProjects\\FINAL_ALEXA\\malar.mp3')
+
+ if "tamil song"in command:
+     talk("playing tamil song")
+     playsound('C:\\Users\\Harshitha G S\\PycharmProjects\\FINAL_ALEXA\\Master.mp3')
+
+ if"kannada song"in command:
+     talk("playing kannada song")
+     playsound('C:\\Users\\Harshitha G S\\PycharmProjects\\FINAL_ALEXA\\kannada.mp3')
+
+'''for playing songs please provide the location of the mp3 file (Absolute Path)0'''
+
+
+
+
+
+run_assistant()
+
+
